@@ -266,24 +266,29 @@
     </html>
     <script>
         submitRating = function(rating){
-            let pid, did;
-            const urlParams = new URLSearchParams(location.search);
-            for (const [key, value] of urlParams) {
-                if (key == "pid"){
-                    pid = value;
-                }else if (key == "did"){
-                    did = value;
-                }
+        let pid, did;
+        const urlParams = new URLSearchParams(location.search);
+        for (const [key, value] of urlParams) {
+            if (key == "pid"){
+                pid = value;
+            }else if (key == "did"){
+                did = value;
             }
+        }
 
         var raw = JSON.stringify({pid,did,rating});
         console.log(raw);
         console.log(document.getElementById("one"));
-        var requestOptions = {
-        method: 'POST',
-        body: raw,
-        redirect: 'follow'
-    };
+        const requestOptions = {
+            method: 'POST',
+            mode: "cors",
+            cache: "no-cache",
+            redirect: 'follow',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ pid, did, rating })
+        };
 
     fetch("http://localhost:8888/product/rate", requestOptions)
         .then(response => response.text())
