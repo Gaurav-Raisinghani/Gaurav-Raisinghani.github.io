@@ -277,8 +277,6 @@
         }
 
         var raw = JSON.stringify({pid,did,rating});
-        console.log(raw);
-        console.log(document.getElementById("one"));
         const requestOptions = {
             method: 'POST',
             mode: "cors",
@@ -292,8 +290,10 @@
 
     fetch("http://localhost:8888/product/rate", requestOptions)
         .then(response => response.text())
-        .then(result => console.log(result))
+        .then(result => {
+            console.log(result);
+            window.location.replace("ThankYou.html");
+        })
         .catch(error => console.log('error', error));
-        window.location.replace("ThankYou.html");
         }
     </script>
